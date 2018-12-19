@@ -1,0 +1,72 @@
+---
+# tasks file for deploy_system
+- name: Chek and Print LINUX Version
+  debug: var=ansible_os_family 
+
+- block: #======= block for RedHat======  
+  - name: install packages
+    yum: pkg={{ item.name }} state=present
+    with_items:
+      - name: nginx
+      - name: git 
+      - name: mysql-server
+      - name: python-mysqldb
+      - name: python3-setuptools
+      - name: python3-pip
+      - name: python3-pymysql
+      - name: python-setuptools
+    when: ansible_os_family == "RedHat" 
+
+- block: #======= block for Debian====== 
+
+  - name: install packages
+    apt: pkg={{ item.name }} state=present
+    with_items:
+      - name: nginx
+      - name: git 
+      - name: mysql-server
+      - name: python-mysqldb
+      - name: python3-setuptools
+      - name: python3-pip
+      - name: python3-pymysql
+      - name: python-setuptools
+    when: ansible_os_family == "Debian" 
+
+- name: Install required pip packages
+  pip:
+    name:
+      - virtualenv
+    executable: pip3
+
+- name: Create MySQL user
+  mysql_user: >
+    name={{ mysql_user }}
+    host=%
+    password={{ mysql_user_password }}
+    priv={{ mysql_database }}.*:ALL
+    login_user={{ mysql_root_user }}
+    login_password={{ mysql_root_password }}
+    state=present
+  notify:
+    - restart mysql
+
+# create database
+- name: Create MySQL database
+  mysql_db: >
+    name={{ mysql_database }}
+    collation=utf8_general_ci
+    encoding=utf8
+    login_user={{ mysql_root_user }}
+    login_password={{ mysql_root_password }}
+    state=present
+  notify:
+    - restart mysql
+    
+- name: Upload default index.html for host
+  copy: src=index.html dest=/var/www/html/index.nginx-debian.html mode=0644
+  notify:
+    - restart nginx
+    
+- name: make sure nginx server is running
+  service: name=nginx state=started enabled=yes
+

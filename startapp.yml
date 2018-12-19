@@ -1,0 +1,9 @@
+---
+- name: Install system
+  hosts: webservers
+  become: no
+  gather_facts: no
+
+  roles:
+    - deploy_django 
+

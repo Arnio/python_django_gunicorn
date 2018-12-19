@@ -1,0 +1,33 @@
+---
+# vars file for deploy_django
+
+project_name: djrest
+
+# the git repository URL for the project
+project_repo: https://github.com/MikhailKravets/learn-django-rest-framework.git
+
+# linux username
+username: ubuntu 
+
+user_homedir: "/home/{{ username }}"
+
+project_dir: "{{ user_homedir }}/project"
+
+project_homedir: "{{ project_dir }}/{{ project_slug }}"
+
+# virtualenv name
+env: "{{ project_dir }}/env"
+
+wsgi_module: "{{ project_name }}.wsgi"
+
+server_name: 54.93.105.119 
+
+requirements: 'requirements.txt'
+
+local_settings: "local_settings.py" 
+
+pythonpath: "/{{ project_name }}/quickstart"
+
+# project slug example/example/settings.py
+project_slug: djrest
+

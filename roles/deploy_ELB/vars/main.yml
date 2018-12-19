@@ -1,0 +1,11 @@
+---
+# vars file for deploy_ELB
+instance_type: t2.micro
+security_group: ansible-webserver
+image: ami-0bdf93799014acdc4 #ami-0cfbf4f6db41068ac  #ami-c86c3f23
+keypair: TestPublic #  keys in AWS
+region: eu-central-1 # Change the Region
+subnet: subnet-25255b58
+count: 1
+hostpath: "~/testex/hosts"
+

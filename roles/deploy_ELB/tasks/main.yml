@@ -1,0 +1,29 @@
+---
+# tasks file for deploy_ELB
+- name: setup a simple load balancer
+  ec2_elb_lb:
+     name: testelb
+     state: present
+     region: "{{ region }}"
+     zones:
+       - "{{ region }}a"
+       - "{{ region }}b"
+       - "{{ region }}c"
+
+     listeners:
+       - protocol: http
+         load_balancer_port: 80
+         instance_port: 80
+  register: testelb
+
+- name: add the webservers to the load balancer
+  local_action: ec2_elb
+  args:
+    instance_id: "{{ item.id }}"
+    ec2_elbs: testelb
+    state: running 
+    region: "{{ region }}"
+    instance_tags: 
+    Type: webserver
+    loop: "{{ ec2.instances }}"
+

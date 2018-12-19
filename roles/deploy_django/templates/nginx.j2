@@ -1,0 +1,16 @@
+server {
+   listen 80;
+   listen [::]:80;
+   server_name {{ project_url }};
+   root /var/www/{{ project_url }};
+   location / {
+       proxy_pass http://localhost:8000;
+       proxy_set_header Host $http_host;
+   }
+   location /static/ {
+       alias /{{ static_root }}/static/;
+   }
+   location /media/ {
+       alias /{{ static_root }} }}/media/;
+   }
+}
