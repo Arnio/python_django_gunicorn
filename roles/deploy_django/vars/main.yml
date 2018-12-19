@@ -20,8 +20,6 @@ env: "{{ project_dir }}/env"
 
 wsgi_module: "{{ project_name }}.wsgi"
 
-server_name: 54.93.105.119 
-
 requirements: 'requirements.txt'
 
 local_settings: "local_settings.py" 
