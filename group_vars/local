@@ -3,14 +3,14 @@ ansible_ssh_private_key_file	: /home/andriy/.ssh/Private_ArniKey.pem
 
 instance_type: t2.micro
 security_group: ansible-webserver
-image: ami-0bdf93799014acdc4 #ami-0cfbf4f6db41068ac  #ami-c86c3f23
+image: ami-0bdf93799014acdc4 #ami-0cfbf4f6db41068ac amazon #ami-c86c3f23 #ami-0bdf93799014acdc4 ubuntu #  centos #ami-c86c3f23
 keypair: TestPublic # keys in AWS
 region: eu-central-1 # Change the Region
 subnet: subnet-25255b58
 count: 1
 hostpath: "~/test/hosts"
 group_name: test
-instances_min: 1 # minimum number of instances in the auto scaling group
+instances_min: 0 # minimum number of instances in the auto scaling group
 instances_max: 1 # maximum number of instances in the auto scaling group
 iam_profile: "noaccess"
 volumes:

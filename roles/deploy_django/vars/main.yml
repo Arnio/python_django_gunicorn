@@ -6,12 +6,9 @@ project_name: djrest
 # the git repository URL for the project
 project_repo: https://github.com/MikhailKravets/learn-django-rest-framework.git
 
-# linux username
-username: ubuntu 
-
 user_homedir: "/home/{{ username }}"
 
-project_dir: "{{ user_homedir }}/project"
+project_dir: "{{ user_homedir }}/webapp"
 
 project_homedir: "{{ project_dir }}/{{ project_slug }}"
 
@@ -24,7 +21,7 @@ requirements: 'requirements.txt'
 
 local_settings: "local_settings.py" 
 
-pythonpath: "/{{ project_name }}/quickstart"
+pythonpath: "{{ project_name }}/"
 
 # project slug example/example/settings.py
 project_slug: djrest

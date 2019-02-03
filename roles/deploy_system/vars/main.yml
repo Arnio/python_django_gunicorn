@@ -1,7 +1,6 @@
 ---
 # vars file for deploy_system
 
-username: ubuntu 
 user_crypt_password: $1$xyz$YtULyRIz/nn28hEh011CG/
 
 debug: True
@@ -21,7 +20,7 @@ mysql_root_password: "root"
 mysql_database: "django-rest-db"
 
 # mysql user for current project
-mysql_user: "ubuntu"
+mysql_user: "django"
 
 # mysql user password for current project
-mysql_user_password: "ubuntu" 
+mysql_user_password: "django" 

@@ -1,23 +1,34 @@
 ---
 # tasks file for deploy_system
-- name: Chek and Print LINUX Version
-  debug: var=ansible_os_family 
 
-- block: #======= block for RedHat======  
+- name: Chek and Print LINUX Version
+  debug: var=ansible_distribution
+
+- block: #=======blockforRedHat======  
+  - name: updating the system
+    yum: update_cache=yes
+  
   - name: install packages
     yum: pkg={{ item.name }} state=present
     with_items:
+      - name: epel-release
       - name: nginx
       - name: git 
       - name: mysql-server
-      - name: python-mysqldb
       - name: python3-setuptools
       - name: python3-pip
-      - name: python3-pymysql
       - name: python-setuptools
-    when: ansible_os_family == "RedHat" 
+  when: ansible_distribution == "CentOS" 
 
 - block: #======= block for Debian====== 
+
+  - name: Specify MySQL root password before installing
+    debconf: name='mysql-server' question='mysql-server/root_password' value='{{mysql_root_password | quote}}' vtype='password'
+    become: true
+
+  - name: Confirm MySQL root password before installing
+    debconf: name='mysql-server' question='mysql-server/root_password_again' value='{{mysql_root_password | quote}}' vtype='password'
+    become: true
 
   - name: install packages
     apt: pkg={{ item.name }} state=present
@@ -25,18 +36,18 @@
       - name: nginx
       - name: git 
       - name: mysql-server
-      - name: python-mysqldb
       - name: python3-setuptools
       - name: python3-pip
-      - name: python3-pymysql
       - name: python-setuptools
-    when: ansible_os_family == "Debian" 
+      - name: python-pymysql
+  when: ansible_distribution == "Ubuntu" 
 
 - name: Install required pip packages
   pip:
     name:
       - virtualenv
     executable: pip3
+
 
 - name: Create MySQL user
   mysql_user: >
