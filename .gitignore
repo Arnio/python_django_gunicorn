@@ -1,7 +1,16 @@
-reated by https://www.gitignore.io/api/ansible
-# Edit at https://www.gitignore.io/?templates=ansible
+databases/*
+**/databases
 
 ### Ansible ###
 *.retry
 
-# End of https://www.gitignore.io/api/ansible
+
+.DS_Store
+settings.local.php
+files
+.idea
+.docksal-config
+services.yml
+test.test
+*.sql
+*.mysql

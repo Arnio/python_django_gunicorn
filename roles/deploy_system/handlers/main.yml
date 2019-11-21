@@ -1,7 +1,0 @@
----
-# handlers file for deploy_system
-- name: restart mysql
-  service: name=mysql state=restarted enabled=yes
-
-- name: restart nginx
-  service: name=nginx state=restarted enabled=yes

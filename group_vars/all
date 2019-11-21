@@ -1,3 +1,0 @@
-ansible_user			: ubuntu
-ansible_ssh_private_key_file	: ~/key/TestPrivate.pem
-project_url: "ec2-3-120-37-60.eu-central-1.compute.amazonaws.com"
